@@ -46,3 +46,11 @@ export async function postUserTicket(req: AuthenticatedRequest, res: Response) {
     return res.sendStatus(httpStatus.NO_CONTENT);
   }
 }
+
+const ticketsController = {
+  getTicketType,
+  getUserTicket,
+  postUserTicket
+};
+
+export default ticketsController;

@@ -47,10 +47,13 @@ async function getTicketById(id: number) {
     where: {
       id,
     },
+    include: {
+      Enrollment: true,
+    }
   });
 }
 
-async function getTicketTypeBYId(ticketTypeId: number) {
+async function getTicketTypeById(ticketTypeId: number) {
   return await prisma.ticketType.findFirst({
     where: {
       id: ticketTypeId
@@ -67,7 +70,7 @@ const ticketsRepository = {
   newTicket,
   updateTicket,
   getTicketById,
-  getTicketTypeBYId
+  getTicketTypeById
 };
 
 export default ticketsRepository;

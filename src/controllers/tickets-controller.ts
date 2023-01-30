@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ticketsService from "@/services/tickets-service";
 import { AuthenticatedRequest } from "@/middlewares";
 import httpStatus from "http-status";
+import { badRequestError } from "@/errors/bad-request-error";
 
 export async function getTicketType(req: Request, res: Response) {
   try {
@@ -34,10 +35,9 @@ export async function postUserTicket(req: AuthenticatedRequest, res: Response) {
 
   try {
     const insertTicket = await ticketsService.postTicket(userId, ticketTypeId);
-
-    return res.send(insertTicket).status(httpStatus.CREATED);
+    return res.status(httpStatus.CREATED).send(insertTicket);
   } catch (err) {
-    if (err.name === "NotFoundError") {
+    if(err.name === "NotFoundError") {
       return res.sendStatus(httpStatus.NOT_FOUND);
     }
     if(err.name === "badRequestError") {
@@ -47,10 +47,3 @@ export async function postUserTicket(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-const ticketsController = {
-  getTicketType,
-  getUserTicket,
-  postUserTicket
-};
-
-export default ticketsController;

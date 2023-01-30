@@ -11,7 +11,7 @@ async function getPayment(ticketId: number) {
 
 async function createPayment(data: PaymentType) {
   return prisma.payment.create({
-    data,
+    data
   });
 }
 
